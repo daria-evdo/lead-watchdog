@@ -1,0 +1,15 @@
+flowchart LR
+    A["Lead form<br/>ads · referrals · webinars"] --> B[("Google Sheet<br/>mini-CRM")]
+    B -- "published CSV" --> C["Lead Watchdog<br/>Python, no dependencies"]
+    C --> D1["Stuck new leads"]
+    C --> D2["Cold follow-ups<br/>overdue calls"]
+    C --> D3["Booking-rate and volume drop<br/>+ the source that explains it"]
+    C --> D4["Data hygiene"]
+    D1 --> E["Daily digest"]
+    D2 --> E
+    D3 --> E
+    D4 --> E
+    E --> F["Telegram"]
+    F --> G["Operator: fix it<br/>or escalate (SOP)"]
+    H["GitHub Actions<br/>every morning"] -. triggers .-> C
+    C -. "sheet unreadable: warning instead of silence" .-> F

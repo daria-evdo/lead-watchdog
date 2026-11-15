@@ -1,0 +1,38 @@
+name: Daily lead digest
+
+on:
+  schedule:
+    - cron: "0 5 * * *"   # 05:00 UTC = 08:00 in Minsk (UTC+3). GitHub may start it a few minutes late.
+  workflow_dispatch:       # lets you run it by hand from the Actions tab
+
+permissions:
+  contents: read
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Settings > Secrets and variables > Actions. Without a LEADWATCH_SOURCE secret
+      # there is no real sheet yet, so generate fresh demo data (anchored at "now").
+      - name: Use fresh demo data when no sheet is configured
+        env:
+          LEADWATCH_SOURCE: ${{ secrets.LEADWATCH_SOURCE }}
+        run: |
+          if [ -z "$LEADWATCH_SOURCE" ]; then
+            python scripts/make_demo_data.py --utc-offset 3
+          fi
+
+      - name: Send the digest
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          LEADWATCH_SOURCE: ${{ secrets.LEADWATCH_SOURCE }}
+          LEADWATCH_UTC_OFFSET: "3"   # timezone of the sheet's timestamps (Dubai = 4)
+        run: python -m leadwatch --send
