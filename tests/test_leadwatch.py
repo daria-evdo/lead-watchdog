@@ -280,6 +280,14 @@ class FunnelTests(unittest.TestCase):
         self.assertEqual(alert.severity, "critical")  # 50% or more
         self.assertEqual(alert.items, ["A: 12 vs 30 the week before"])
 
+    def test_volume_critical_threshold_comes_from_config(self):
+        leads = spread(30, 0, "A", 13.5, 7.5, start_row=2) + spread(18, 0, "A", 6.5, 0.5, start_row=40)
+        s = self.summary(leads)
+        [alert] = checks.check_volume(s, CFG)
+        self.assertEqual(alert.severity, "warning")  # (30 - 18) / 30 = 40%, below the 50% default
+        [alert] = checks.check_volume(s, Config(critical_volume_drop_threshold=0.35))
+        self.assertEqual(alert.severity, "critical")  # the same 40% drop passes a 35% limit
+
     def test_binomial_matches_hand_calculation(self):
         self.assertAlmostEqual(metrics.binom_cdf(0, 3, 0.5), 0.125)  # (1/2)^3
         self.assertAlmostEqual(metrics.binom_cdf(1, 3, 0.5), 0.5)  # (1 + 3) / 8

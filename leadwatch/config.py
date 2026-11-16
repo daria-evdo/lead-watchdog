@@ -46,6 +46,7 @@ class Config:
     drop_threshold: float = 0.20     # booking rate down 20%+ -> warning
     critical_drop_threshold: float = 0.40
     volume_drop_threshold: float = 0.30
+    critical_volume_drop_threshold: float = 0.50
     min_window_leads: int = 15       # don't judge a week with fewer leads than this
     min_source_leads: int = 6        # ...or a single source with fewer than this
     luck_threshold: float = 0.05     # a source drop must be <5% likely to be pure luck

@@ -110,7 +110,7 @@ Design decisions worth knowing:
 ## Quick start (demo data, nothing is sent)
 
 ```bash
-python -m unittest discover -v                    # 52 tests
+python -m unittest discover -v                    # 53 tests
 python -m leadwatch --now "2026-11-12 09:00"      # reproduces the sample output above
 ```
 
@@ -167,7 +167,7 @@ Flags: `--send`, `--print`, `--ping`, `--find-chat`, `--now`, `--version`.
 ## Tests
 
 ```bash
-python -m unittest discover -v         # 52 tests, a fraction of a second
+python -m unittest discover -v         # 53 tests, a fraction of a second
 python scripts/mutation_check.py       # injects 8 bugs on purpose; the suite must catch all 8
 ```
 
@@ -187,7 +187,7 @@ leadwatch/
   telegram.py   minimal Bot API client (token never appears in errors)
   cli.py        the command line
 scripts/        demo-data generator, bug-injection check
-tests/          52 tests
+tests/          53 tests
 docs/           SOP for alert response, system map, how AI was used
 ```
 

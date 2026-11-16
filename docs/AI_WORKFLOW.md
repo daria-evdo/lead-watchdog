@@ -10,7 +10,7 @@
 
 ## How the output was checked
 
-1. **Tests with hand-computed expectations.** 52 tests. For example, a week with 4 leads and 2 bookings must be 50%; a source that fell from 40% to 0% with 10 leads has a 0.6¹⁰ ≈ 0.6% chance of being luck.
+1. **Tests with hand-computed expectations.** 53 tests. For example, a week with 4 leads and 2 bookings must be 50%; a source that fell from 40% to 0% with 10 leads has a 0.6¹⁰ ≈ 0.6% chance of being luck.
 2. **Boundary tests.** 24h exactly is fine, 24h 1min is flagged; a call 1.9h late is inside the grace period, 2.1h is not.
 3. **Bug injection.** `python scripts/mutation_check.py` breaks the code on purpose in 8 ways (a wrong threshold, a leaked token, day-first dates, ...). The test suite must go red every time. It does: 8 of 8.
 4. **Independent recount.** Tests recompute the headline numbers of the digest (booking rates, speed to lead, stuck leads, per-source counts) straight from the CSV with the `csv` module, using none of the project's code.
@@ -37,4 +37,12 @@
 
 ## My part
 
-> Edit this section so it says exactly what you did yourself, for example: read and can explain every rule; created the Telegram bot and ran the digest on my own phone; set up the daily GitHub Action; wrote the SOP in Notion; tuned the thresholds. Delete this note when done.
+The AI drafted the code, tests, demo data and docs (see above). Here is exactly what I did myself:
+
+- Set up the Python environment, ran the full test suite (52 tests passed) and the bug-injection check (8 of 8 injected bugs caught) on my own machine.
+- Connected the Telegram bot: got the bot token, found the chat ID and verified the connection.
+- Deployed the project to GitHub and added the GitHub Actions secrets (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`).
+- Ran the daily-digest workflow by hand in GitHub Actions and confirmed the digest arrived in Telegram.
+- Published the SOP and the system map as public Notion pages (the SOP text was drafted by the AI).
+- Found that one alert threshold was hard-coded in the logic, contradicting the docs. Moved it into the config with the other thresholds, added a test covering both sides of the boundary, and re-ran the full suite and the bug-injection check.
+

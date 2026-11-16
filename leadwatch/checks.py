@@ -239,7 +239,7 @@ def check_volume(summary: Summary, cfg: Config) -> List[Alert]:
     return [
         Alert(
             kind=VOLUME,
-            severity=CRITICAL if drop >= 0.5 else WARNING,
+            severity=CRITICAL if drop >= cfg.critical_volume_drop_threshold else WARNING,
             title=f"Lead volume down {drop * 100:.0f}% ({cur} vs {prev} leads in 7 days)",
             items=[text for _, text in changes[:2]],
             hint="Check ad accounts and budgets, tracking links and that the lead form still works.",
