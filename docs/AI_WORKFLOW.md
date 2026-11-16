@@ -39,7 +39,7 @@
 
 The AI drafted the code, tests, demo data and docs (see above). Here is exactly what I did myself:
 
-- Set up the Python environment, ran the full test suite (52 tests passed) and the bug-injection check (8 of 8 injected bugs caught) on my own machine.
+- Set up the Python environment, ran the full test suite (53 tests passed) and the bug-injection check (8 of 8 injected bugs caught) on my own machine.
 - Connected the Telegram bot: got the bot token, found the chat ID and verified the connection.
 - Deployed the project to GitHub and added the GitHub Actions secrets (`TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`).
 - Ran the daily-digest workflow by hand in GitHub Actions and confirmed the digest arrived in Telegram.
