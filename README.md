@@ -91,6 +91,9 @@ Pipeline now: 4 new · 26 contacted · 9 call booked
    → Without a source we can't tell which channel works. Fill it from the form or UTM data.
 ```
 
+![Digest in Telegram - Part 1](docs/digest_example1.png)
+![Digest in Telegram - Part 2](docs/digest_example2.png)
+
 Every alert names the rows involved, so any number can be checked by filtering the sheet.
 
 ## How it works
